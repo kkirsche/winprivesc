@@ -4,4 +4,4 @@ Windows privilege escalation helper
 
 
 ## Basic
-Based on https://github.com/kkirsche/winprivesc.git
+Based on http://www.fuzzysecurity.com/tutorials/16.html
