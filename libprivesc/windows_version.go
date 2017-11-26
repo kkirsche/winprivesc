@@ -14,8 +14,8 @@ type WindowsVersion struct {
 	Version string
 }
 
-func GetWindowsVersion(o *OutputConfig) *WindowsVersion {
-	var w *WindowsVersion
+func GetWindowsVersion(o *OutputConfig) WindowsVersion {
+	var w WindowsVersion
 	dll := windows.NewLazySystemDLL("kernel32.dll")
 	if err := dll.Load(); err != nil {
 		fmt.Println("[!] Failed to load kernel32.dll to get windows version")
