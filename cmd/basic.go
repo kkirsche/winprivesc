@@ -1,3 +1,4 @@
+// +build windows
 // Copyright © 2017 NAME HERE <EMAIL ADDRESS>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,8 +30,15 @@ fundamentals.
 
 URI: http://www.fuzzysecurity.com/tutorials/16.html`,
 	Run: func(cmd *cobra.Command, args []string) {
-		libprivesc.SystemChecks()
-		libprivesc.NetworkChecks()
+		if oc.FilePath != "" {
+			oc.FileEnabled = true
+		}
+		ok := oc.Setup()
+		if ok {
+			libprivesc.SystemChecks(&oc)
+			libprivesc.NetworkChecks(&oc)
+			libprivesc.Vulnerabilities(&oc)
+		}
 	},
 }
 

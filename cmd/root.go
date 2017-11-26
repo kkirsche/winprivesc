@@ -1,3 +1,4 @@
+// +build windows
 // Copyright © 2017 NAME HERE <EMAIL ADDRESS>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,11 +19,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sirupsen/logrus"
+	"github.com/kkirsche/winprivesc/libprivesc"
 	"github.com/spf13/cobra"
 )
 
-var v bool
+var oc libprivesc.OutputConfig
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
@@ -52,11 +53,7 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	RootCmd.PersistentFlags().BoolVarP(&v, "verbose", "v", false, "enable verbose mode")
-
-	if v {
-		logrus.SetLevel(logrus.DebugLevel)
-	} else {
-		logrus.SetLevel(logrus.InfoLevel)
-	}
+	RootCmd.PersistentFlags().BoolVarP(&oc.Verbose, "verbose", "v", false, "enable verbose mode (output commands used)")
+	RootCmd.PersistentFlags().BoolVarP(&oc.Quiet, "quiet", "q", false, "enable quiet mode (disable stdout)")
+	RootCmd.PersistentFlags().StringVarP(&oc.FilePath, "output", "o", "", "output to text file")
 }
